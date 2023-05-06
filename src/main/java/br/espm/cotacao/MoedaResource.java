@@ -1,16 +1,18 @@
 package br.espm.cotacao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 public class MoedaResource {
 
@@ -18,8 +20,15 @@ public class MoedaResource {
     public MoedaService moedaService;
 
     @GetMapping("/moedas")
-    public List<MoedaTO> getMoedas() {
-        return moedaService.list();
+    public List<MoedaTO> getMoedas(@RequestParam(name = "nome", defaultValue = "") String nome) {
+        return (nome.length() > 0)
+            ? moedaService.list().stream().filter(moeda -> moeda.nome().toLowerCase().contains(nome.toLowerCase())).toList()
+            : moedaService.list();
+    }
+
+    @GetMapping("/moedas/{id}")
+    public MoedaTO getMoeda(@PathVariable("id") String id) {
+        return moedaService.find(id);
     }
 
     @PostMapping("/moedas")
