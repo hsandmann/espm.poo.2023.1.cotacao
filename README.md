@@ -1,6 +1,6 @@
 # espm.poo.2023.1.cotacao
 
-[2023.1 - ESPM - POO](https://hsandmann.github.io/espm.poo.2023.1/)
+[2023.1 - ESPM - POO](https://github.com/hsandmann/espm.poo.2023.1/)
 
 SpringBoot
 
