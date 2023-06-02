@@ -36,9 +36,7 @@ public class CotacaoResource {
             final Date dtini = ini == null ? new Date() : sdf.parse(ini);
             final Date dtend = end == null ? new Date() : sdf.parse(end);
             MoedaTO moeda = moedaService.findBySigla(sigla);
-            if (moeda == null) {
-                throw new RuntimeException("Moeda nao existe");
-            }
+            if (moeda == null) throw new RuntimeException("Moeda nao existe");
             return cotacaoService.listByMoeda(moeda, dtini, dtend);
         } catch(ParseException e) {
             throw new RuntimeException(e);
@@ -48,9 +46,7 @@ public class CotacaoResource {
     @PostMapping("/{sigla}")
     public CotacaoTO insertCotacao(@PathVariable("sigla") String sigla, @RequestBody CotacaoTO to) {
         MoedaTO moeda = moedaService.findBySigla(sigla);
-        if (moeda == null) {
-            throw new RuntimeException("Moeda nao existe");
-        }
+        if (moeda == null) throw new RuntimeException("Moeda nao existe");
         return cotacaoService.create(new CotacaoTO(
             null,
             moeda,
@@ -62,9 +58,7 @@ public class CotacaoResource {
     @DeleteMapping("/{sigla}/{id}")
     public void deleteCotacao(@PathVariable("sigla") String sigla, @PathVariable("id") String id) {
         MoedaTO moeda = moedaService.findBySigla(sigla);
-        if (moeda == null) {
-            throw new RuntimeException("Moeda nao existe");
-        }
+        if (moeda == null) throw new RuntimeException("Moeda nao existe");
         cotacaoService.delete(id);
     }
 
