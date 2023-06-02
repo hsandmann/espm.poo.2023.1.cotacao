@@ -1,4 +1,4 @@
-package br.espm.cotacao;
+package br.espm.cotacao.moeda;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package br.espm.cotacao;
+package br.espm.cotacao.moeda;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +25,18 @@ public class MoedaService {
             .orElse(null);
     }
 
-    public void create(MoedaTO moeda) {
-        moedaRepository.save(new MoedaModel(moeda));
+    public MoedaTO create(MoedaTO moeda) {
+        return moedaRepository.save(new MoedaModel(moeda)).to();
     }
 
     public void delete(String id) {
         moedaRepository.deleteById(id);
+    }
+
+    public MoedaTO findBySigla(String sigla) {
+        return moedaRepository.findBySigla(sigla)
+            .map(m -> new MoedaTO(m.getId(), m.getNome(), m.getSimbolo(), m.getSigla()))
+            .orElse(null);
     }
     
 }

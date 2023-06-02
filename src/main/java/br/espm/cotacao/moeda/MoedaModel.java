@@ -1,4 +1,4 @@
-package br.espm.cotacao;
+package br.espm.cotacao.moeda;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,9 +6,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "moeda")
+@NoArgsConstructor
+@Getter
+@Setter
 public class MoedaModel {
 
     @Id
@@ -25,47 +31,20 @@ public class MoedaModel {
     @Column(name = "tx_simbolo")
     private String simbolo;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getSigla() {
-        return sigla;
-    }
-
-    public String getSimbolo() {
-        return simbolo;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
-    }
-
-    public void setSimbolo(String simbolo) {
-        this.simbolo = simbolo;
-    }
-
-    public MoedaModel() {
-
-    }
-
     public MoedaModel(MoedaTO to) {
         this.id = to.id();
         this.nome = to.nome();
         this.simbolo = to.simbolo();
         this.sigla = to.sigla();
+    }
+
+    public MoedaTO to() {
+        return new MoedaTO(
+            id,
+            nome,
+            simbolo,
+            sigla
+        );
     }
     
 }
